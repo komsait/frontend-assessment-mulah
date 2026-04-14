@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mulah Rewards - Check Loyalty Points</title>
+    <meta name="description" content="Check your Mulah Rewards loyalty points by entering your phone number.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background: #f7f7f9;
+            color: #2d2d2d;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .phone-container {
+            width: 640px;
+            height: 1136px;
+            max-width: 100vw;
+            max-height: 100vh;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 40px 40px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 8px;
+            background: linear-gradient(135deg, #c0392b, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            font-size: 34px;
+            font-weight: 300;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 10px;
+        }
+
+        .phone-input-wrapper {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: #fff;
+        }
+
+        .phone-input-wrapper:focus-within {
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+        }
+
+        .phone-input-wrapper.error {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        .country-code {
+            padding: 16px 14px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d2d2d;
+            background: #f9f9fb;
+            border-right: 1.5px solid #ddd;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .phone-input {
+            flex: 1;
+            padding: 16px 14px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #2d2d2d;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .phone-input::placeholder {
+            color: #bbb;
+        }
+
+        .error-message {
+            font-size: 13px;
+            color: #e74c3c;
+            font-weight: 500;
+            font-style: italic;
+            margin-top: 8px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .spacer {
+            flex: 1;
+        }
+
+        .btn-container {
+            padding: 0 0 30px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 18px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(230, 126, 34, 0.45);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 40px 30px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .footer a {
+            color: #e67e22;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .shake {
+            animation: shake 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="content">
+            <div class="logo">
+                <h1>Mulah</h1>
+            </div>
+
+            <h2 class="page-title">Loyalty Points</h2>
+            <p class="page-subtitle">Enter your phone number to check your loyalty points.</p>
+
+            <div class="form-group">
+                <label class="form-label" for="phone-number">Phone Number</label>
+                <div class="phone-input-wrapper" id="phone-wrapper">
+                    <span class="country-code">+60</span>
+                    <input 
+                        type="tel" 
+                        id="phone-number" 
+                        class="phone-input" 
+                        placeholder="Enter Phone Number"
+                        inputmode="numeric"
+                        maxlength="15"
+                        autocomplete="tel"
+                    >
+                </div>
+                <p class="error-message" id="error-empty">*Please insert a phone number.</p>
+                <p class="error-message" id="error-numeric">*Please enter numbers only.</p>
+                <p class="error-message" id="error-invalid">*Invalid phone number. Please try again.</p>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="btn-container">
+                <button type="button" class="btn-primary" id="btn-check">Check Loyalty Points</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            Powered by <a href="#">MulahRewards.com</a>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const phoneInput = document.getElementById('phone-number');
+            const phoneWrapper = document.getElementById('phone-wrapper');
+            const btnCheck = document.getElementById('btn-check');
+            const errorEmpty = document.getElementById('error-empty');
+            const errorNumeric = document.getElementById('error-numeric');
+            const errorInvalid = document.getElementById('error-invalid');
+
+
+
+            function hideAllErrors() {
+                errorEmpty.classList.remove('visible');
+                errorNumeric.classList.remove('visible');
+                errorInvalid.classList.remove('visible');
+                phoneWrapper.classList.remove('error');
+            }
+
+            function showError(el) {
+                hideAllErrors();
+                el.classList.add('visible');
+                phoneWrapper.classList.add('error');
+                phoneWrapper.classList.remove('shake');
+                void phoneWrapper.offsetWidth;
+                phoneWrapper.classList.add('shake');
+            }
+
+            // Only allow numeric input
+            phoneInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                hideAllErrors();
+            });
+
+            // Prevent non-numeric keypresses
+            phoneInput.addEventListener('keypress', function(e) {
+                if (!/[0-9]/.test(e.key) && e.key !== 'Enter') {
+                    e.preventDefault();
+                }
+            });
+
+            btnCheck.addEventListener('click', function() {
+                const value = phoneInput.value.trim();
+
+                if (value === '') {
+                    showError(errorEmpty);
+                    return;
+                }
+
+                if (!/^\d+$/.test(value)) {
+                    showError(errorNumeric);
+                    return;
+                }
+
+                if (value.length < 7 || value.length > 15) {
+                    showError(errorInvalid);
+                    return;
+                }
+
+                // Any number within reasonable length — store and navigate
+                const fullNumber = '+60' + value;
+                localStorage.setItem('mulah_phone', fullNumber);
+                window.location.href = 'page2.html';
+            });
+
+            // Allow Enter key to submit
+            phoneInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    btnCheck.click();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

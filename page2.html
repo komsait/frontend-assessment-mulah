@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mulah Rewards - Registration</title>
+    <meta name="description" content="Register your details with Mulah Rewards to earn and redeem loyalty points.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background: #f7f7f9;
+            color: #2d2d2d;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .phone-container {
+            width: 640px;
+            height: 1136px;
+            max-width: 100vw;
+            max-height: 100vh;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 40px 40px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 8px;
+            background: linear-gradient(135deg, #c0392b, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            font-size: 34px;
+            font-weight: 300;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 10px;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 16px 14px;
+            font-size: 16px;
+            border: 1.5px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            background: #fff;
+            color: #2d2d2d;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .text-input:focus {
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+        }
+
+        .text-input::placeholder {
+            color: #bbb;
+        }
+
+        .text-input.error {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        /* Birthday inputs */
+        .birthday-row {
+            display: flex;
+            gap: 14px;
+        }
+
+        .birthday-input {
+            flex: 1;
+            padding: 16px 10px;
+            font-size: 16px;
+            border: 1.5px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            background: #fff;
+            color: #2d2d2d;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .birthday-input:focus {
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+        }
+
+        .birthday-input::placeholder {
+            color: #bbb;
+        }
+
+        .birthday-input.error {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        /* Error messages */
+        .error-message {
+            font-size: 13px;
+            color: #e74c3c;
+            font-weight: 500;
+            font-style: italic;
+            margin-top: 8px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Checkbox */
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #e67e22;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .checkbox-row label {
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .spacer {
+            flex: 1;
+        }
+
+        .btn-container {
+            padding: 0 0 30px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 18px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(230, 126, 34, 0.45);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 40px 30px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .footer a {
+            color: #e67e22;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .shake {
+            animation: shake 0.4s ease;
+        }
+
+        .email-section {
+            position: relative;
+        }
+
+        .text-input:disabled {
+            background: #f5f5f5;
+            color: #bbb;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="content">
+            <div class="logo">
+                <h1>Mulah</h1>
+            </div>
+
+            <h2 class="page-title">Registration</h2>
+            <p class="page-subtitle">Please fill up your details.</p>
+
+            <!-- Name -->
+            <div class="form-group">
+                <label class="form-label" for="name-input">Name</label>
+                <input 
+                    type="text" 
+                    id="name-input" 
+                    class="text-input" 
+                    placeholder="Enter Name"
+                    autocomplete="name"
+                >
+                <p class="error-message" id="error-name">*Please insert a name.</p>
+            </div>
+
+            <!-- Birthday -->
+            <div class="form-group">
+                <label class="form-label">Birthday</label>
+                <div class="birthday-row">
+                    <input 
+                        type="text" 
+                        id="birthday-dd" 
+                        class="birthday-input" 
+                        placeholder="DD" 
+                        maxlength="2"
+                        inputmode="numeric"
+                    >
+                    <input 
+                        type="text" 
+                        id="birthday-mm" 
+                        class="birthday-input" 
+                        placeholder="MM" 
+                        maxlength="2"
+                        inputmode="numeric"
+                    >
+                    <input 
+                        type="text" 
+                        id="birthday-yyyy" 
+                        class="birthday-input" 
+                        placeholder="YYYY" 
+                        maxlength="4"
+                        inputmode="numeric"
+                    >
+                </div>
+                <p class="error-message" id="error-birthday">*Please insert your birthday.</p>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group email-section">
+                <label class="form-label" for="email-input">Email</label>
+                <input 
+                    type="email" 
+                    id="email-input" 
+                    class="text-input" 
+                    placeholder="Email Address"
+                    autocomplete="email"
+                >
+                <p class="error-message" id="error-email">*Please insert a valid email address.</p>
+                <div class="checkbox-row">
+                    <input type="checkbox" id="no-email" name="no-email">
+                    <label for="no-email">No email address</label>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="btn-container">
+                <button type="button" class="btn-primary" id="btn-continue">Continue</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            Powered by <a href="#">MulahRewards.com</a>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const nameInput = document.getElementById('name-input');
+            const ddInput = document.getElementById('birthday-dd');
+            const mmInput = document.getElementById('birthday-mm');
+            const yyyyInput = document.getElementById('birthday-yyyy');
+            const emailInput = document.getElementById('email-input');
+            const noEmailCheckbox = document.getElementById('no-email');
+            const btnContinue = document.getElementById('btn-continue');
+
+            const errorName = document.getElementById('error-name');
+            const errorBirthday = document.getElementById('error-birthday');
+            const errorEmail = document.getElementById('error-email');
+
+            // Restrict birthday fields to numbers only
+            [ddInput, mmInput, yyyyInput].forEach(function(input) {
+                input.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+                input.addEventListener('keypress', function(e) {
+                    if (!/[0-9]/.test(e.key)) e.preventDefault();
+                });
+            });
+
+            // Auto-advance between birthday fields
+            ddInput.addEventListener('input', function() {
+                if (this.value.length === 2) mmInput.focus();
+            });
+            mmInput.addEventListener('input', function() {
+                if (this.value.length === 2) yyyyInput.focus();
+            });
+
+            // "No email address" checkbox logic
+            noEmailCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    emailInput.value = '';
+                    emailInput.disabled = true;
+                    emailInput.classList.remove('error');
+                    errorEmail.classList.remove('visible');
+                } else {
+                    emailInput.disabled = false;
+                    emailInput.focus();
+                }
+            });
+
+            // Clear errors on input
+            nameInput.addEventListener('input', function() {
+                this.classList.remove('error');
+                errorName.classList.remove('visible');
+            });
+            [ddInput, mmInput, yyyyInput].forEach(function(input) {
+                input.addEventListener('input', function() {
+                    ddInput.classList.remove('error');
+                    mmInput.classList.remove('error');
+                    yyyyInput.classList.remove('error');
+                    errorBirthday.classList.remove('visible');
+                });
+            });
+            emailInput.addEventListener('input', function() {
+                this.classList.remove('error');
+                errorEmail.classList.remove('visible');
+            });
+
+            function isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            function isValidBirthday(dd, mm, yyyy) {
+                const day = parseInt(dd, 10);
+                const month = parseInt(mm, 10);
+                const year = parseInt(yyyy, 10);
+                if (isNaN(day) || isNaN(month) || isNaN(year)) return false;
+                if (month < 1 || month > 12) return false;
+                if (day < 1 || day > 31) return false;
+                if (year < 1900 || year > new Date().getFullYear()) return false;
+                return true;
+            }
+
+            btnContinue.addEventListener('click', function() {
+                let isValid = true;
+
+                // Validate name
+                if (nameInput.value.trim() === '') {
+                    nameInput.classList.add('error');
+                    errorName.classList.add('visible');
+                    isValid = false;
+                }
+
+                // Validate birthday
+                const dd = ddInput.value.trim();
+                const mm = mmInput.value.trim();
+                const yyyy = yyyyInput.value.trim();
+                if (dd === '' || mm === '' || yyyy === '' || !isValidBirthday(dd, mm, yyyy)) {
+                    ddInput.classList.add('error');
+                    mmInput.classList.add('error');
+                    yyyyInput.classList.add('error');
+                    errorBirthday.classList.add('visible');
+                    isValid = false;
+                }
+
+                // Validate email (unless "No email" is checked)
+                if (!noEmailCheckbox.checked) {
+                    if (emailInput.value.trim() === '' || !isValidEmail(emailInput.value.trim())) {
+                        emailInput.classList.add('error');
+                        errorEmail.classList.add('visible');
+                        isValid = false;
+                    }
+                }
+
+                if (!isValid) return;
+
+                // Store data and navigate
+                const padded = function(num, len) {
+                    return String(num).padStart(len, '0');
+                };
+
+                localStorage.setItem('mulah_name', nameInput.value.trim());
+                localStorage.setItem('mulah_birthday', padded(dd, 2) + '/' + padded(mm, 2) + '/' + yyyy);
+                localStorage.setItem('mulah_email', noEmailCheckbox.checked ? 'N/A' : emailInput.value.trim());
+
+                window.location.href = 'page3.html';
+            });
+        })();
+    </script>
+</body>
+</html>
